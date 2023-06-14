@@ -18,7 +18,8 @@ test('getVersion input "path" and "fileName" and "field"', async () => {
 
 // shows how the runner will run a javascript action with env / stdout protocol
 test('test runs', () => {
-  process.env['INPUT_PATH'] = './'
+  process.env['INPUT_PATH'] = '__tests__'
+  process.env['INPUT_FILENAME'] = 'test.json'
   const np = process.execPath
   const ip = path.join(__dirname, '..', 'lib', 'main.js')
   const options: cp.ExecFileSyncOptions = {

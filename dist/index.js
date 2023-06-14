@@ -73,7 +73,9 @@ function run() {
             const fileName = core.getInput('fileName');
             const field = core.getInput('field');
             const result = (0, getVersion_1.getVersion)(path, fileName, field);
-            console.log('result', result);
+            core.debug(`read path: ${path}`);
+            core.debug(`read fileName: ${fileName}`);
+            core.debug(`read field: ${field}`);
             core.setOutput('version', result);
         }
         catch (error) {
