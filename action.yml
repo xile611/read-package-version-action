@@ -1,11 +1,22 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'Read package version package.json'
+description: 'Output the version specified in [path]/package.json'
+author: 'xile611'
 inputs:
-  milliseconds: # change this
+  path:
     required: true
-    description: 'input description here'
-    default: 'default value if applicable'
+    description: 'path dir path of package.json, do not include package.json'
+    default: './'
+  fileName:
+    required: false
+    description: 'The fileName you want to read, default value is package.json'
+    default: 'package.json'
+  field:
+    required: false
+    description: 'The field which specify the version you want to read'
+    default: 'version'
+outputs:
+  version: # id of the output
+    description: 'the version to read'
 runs:
   using: 'node16'
   main: 'dist/index.js'
