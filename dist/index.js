@@ -71,15 +71,15 @@ function run() {
     var _a;
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const path = core.getInput('path');
-            const filename = core.getInput('filename');
-            const field = core.getInput('field');
-            const version = (0, getVersion_1.getVersion)(path, filename, field);
-            core.debug(`read path: ${path}`);
-            core.debug(`read filename: ${filename}`);
-            core.debug(`read field: ${field}`);
-            core.setOutput('current_version', version);
             const useCurrentVersion = core.getInput('use_current_version');
+            let currentVersion = null;
+            if (useCurrentVersion) {
+                const path = core.getInput('path');
+                const filename = core.getInput('filename');
+                const field = core.getInput('field');
+                currentVersion = (0, getVersion_1.getVersion)(path, filename, field);
+                core.setOutput('current_version', currentVersion);
+            }
             const sermverString = core.getInput('semver_string');
             const sermverPattern = (_a = core.getInput('semver_pattern')) !== null && _a !== void 0 ? _a : '^v?(.*)$';
             const regex = new RegExp(sermverPattern, 'g');
@@ -88,7 +88,7 @@ function run() {
                 return core.setFailed(`[Error]: No matches found when using regex "${sermverPattern}"`);
             }
             if (matches || useCurrentVersion) {
-                const res = (0, parsePrelease_1.parsePrelease)(matches ? matches[1] : null, useCurrentVersion ? version : null);
+                const res = (0, parsePrelease_1.parsePrelease)(matches ? matches[1] : null, useCurrentVersion ? currentVersion : null);
                 core.setOutput('pre_release_type', res.pre_release_type);
                 core.setOutput('pre_release_name', res.pre_release_name);
                 core.setOutput('full', res.full);
