@@ -4,18 +4,18 @@ import {parsePrelease} from './parsePrelease'
 
 async function run(): Promise<void> {
   try {
-    const path: string = core.getInput('path')
-    const filename: string = core.getInput('filename')
-    const field: string = core.getInput('field')
-    const version = getVersion(path, filename, field)
-
-    core.debug(`read path: ${path}`)
-    core.debug(`read filename: ${filename}`)
-    core.debug(`read field: ${field}`)
-
-    core.setOutput('current_version', version)
-
     const useCurrentVersion = core.getInput('use_current_version')
+    let currentVersion: string | null = null
+
+    if (useCurrentVersion) {
+      const path: string = core.getInput('path')
+      const filename: string = core.getInput('filename')
+      const field: string = core.getInput('field')
+      currentVersion = getVersion(path, filename, field)
+
+      core.setOutput('current_version', currentVersion)
+    }
+
     const sermverString = core.getInput('semver_string')
     const sermverPattern = core.getInput('semver_pattern') ?? '^v?(.*)$'
     const regex = new RegExp(sermverPattern, 'g')
@@ -30,7 +30,7 @@ async function run(): Promise<void> {
     if (matches || useCurrentVersion) {
       const res = parsePrelease(
         matches ? matches[1] : null,
-        useCurrentVersion ? version : null
+        useCurrentVersion ? currentVersion : null
       )
 
       core.setOutput('pre_release_type', res.pre_release_type)

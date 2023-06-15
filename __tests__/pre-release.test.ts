@@ -60,3 +60,17 @@ test('test runs', () => {
 
   console.log(cp.execFileSync(np, [ip], options).toString())
 })
+
+// shows how the runner will run a javascript action with env / stdout protocol
+test('test runs when use_current_version = false', () => {
+  process.env['INPUT_USE_CURRENT_VERSION'] = 'false'
+  process.env['INPUT_SEMVER_STRING'] = 'pre-release/1.0.0-alpha.0'
+  process.env['INPUT_SEMVER_PATTERN'] = '^pre-release/(.*)$'
+  const np = process.execPath
+  const ip = path.join(__dirname, '..', 'lib', 'main.js')
+  const options: cp.ExecFileSyncOptions = {
+    env: process.env
+  }
+
+  console.log(cp.execFileSync(np, [ip], options).toString())
+})
