@@ -5,19 +5,19 @@ import * as path from 'path'
 import {expect, test} from '@jest/globals'
 
 test('getVersion by default', async () => {
-  await expect(getVersion()).toBe('1.0.0')
+  expect(getVersion()).toBe('1.0.0')
 })
 
 test('getVersion when input "path"', async () => {
-  await expect(getVersion('./')).toBe('1.0.0')
+  expect(getVersion('./')).toBe('1.0.0')
 })
 
 test('getVersion when input "path" and "filename"', async () => {
-  await expect(getVersion('./__tests__', 'test.json')).toBe('0.1.0')
+  expect(getVersion('./__tests__', 'test.json')).toBe('0.1.0')
 })
 
 test('getVersion input "path" and "filename" and "field"', async () => {
-  await expect(getVersion('./__tests__', 'test.json', 'another')).toBe('1.0.0')
+  expect(getVersion('./__tests__', 'test.json', 'another')).toBe('1.0.0')
 })
 
 // shows how the runner will run a javascript action with env / stdout protocol

@@ -22,3 +22,13 @@ jobs:
       - uses: ./
         with:
           path: './'
+
+      - name: Local action test - pre-release
+        uses: ./
+        id: pre_version
+        with:
+          semver_string: 'v0.4.8-alpha.8'
+
+      - name: Get pre_version
+        run: echo "pre_release_type from pre_version is  ${{ steps.pre_version.outputs.pre_release_type }}"
+      - run: echo "pre_release_name from pre_release_name is  ${{ steps.pre_version.outputs.pre_release_name }}"
