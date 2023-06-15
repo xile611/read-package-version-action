@@ -1,34 +1,87 @@
-<p align="center">
-  <a href="https://github.com/actions/typescript-action/actions"><img alt="typescript-action status" src="https://github.com/actions/typescript-action/workflows/build-test/badge.svg"></a>
-</p>
+# Read package version from package.json
 
-# Create a JavaScript Action using TypeScript
+## useage
 
-Use this template to bootstrap the creation of a TypeScript action.:rocket:
+### examples
 
-This template includes compilation support, tests, a validation workflow, publishing, and versioning guidance.  
+- Case 1: read the version from './package.json'
 
-If you are new, there's also a simpler introduction.  See the [Hello World JavaScript Action](https://github.com/actions/hello-world-javascript-action)
+```
+name: your workflow
 
-## Create an action from this template
+on: push
 
-Click the `Use this Template` and provide the new repo details for your action
+jobs:
+  test:
+    runs-on: ubuntu-latest
 
-## Code in Main
+    steps:
+      - uses: actions/checkout@v1
 
-> First, you'll need to have a reasonably modern version of `node` handy. This won't work with versions older than 9, for instance.
+      - name: Read version of package.json
+        uses: xile611/read-package-version-action@v1
+        id: package-version
 
-Install the dependencies  
+      - name: Show version number
+        run: echo "Version is ${{ steps.package-version.outputs.version }}"
+```
+
+- Case 2: read other field from a json file
+
+```
+name: your workflow
+
+on: push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Read version of package.json
+        uses: xile611/read-package-version-action@v1
+        id: package-version
+        with:
+          path: './test'
+          filename: 'test.json'
+          field: 'tag'
+
+      - name: Show version number
+        run: echo "Version is ${{ steps.package-version.outputs.version }}"
+```
+
+### inputs
+
+| input name | required | default value  | description                                          |
+| ---------- | -------- | -------------- | ---------------------------------------------------- |
+| path       | false    | './'           | The directory path of target json file               |
+| filename   | false    | 'package.json' | The file name you want to read                       |
+| field      | false    | 'version'      | The field which specify the version you want to read |
+
+### outputs
+
+| output name | type   |
+| ----------- | ------ |
+| version     | string |
+
+## develop
+
+Install the dependencies
+
 ```bash
 $ npm install
 ```
 
 Build the typescript and package it for distribution
+
 ```bash
 $ npm run build && npm run package
 ```
 
-Run the tests :heavy_check_mark:  
+Run the tests :heavy_check_mark:
+
 ```bash
 $ npm test
 
@@ -40,41 +93,12 @@ $ npm test
 ...
 ```
 
-## Change action.yml
-
-The action.yml defines the inputs and output for your action.
-
-Update the action.yml with your name, description, inputs and outputs for your action.
-
-See the [documentation](https://help.github.com/en/articles/metadata-syntax-for-github-actions)
-
-## Change the Code
-
-Most toolkit and CI/CD operations involve async operations so the action is run in an async function.
-
-```javascript
-import * as core from '@actions/core';
-...
-
-async function run() {
-  try { 
-      ...
-  } 
-  catch (error) {
-    core.setFailed(error.message);
-  }
-}
-
-run()
-```
-
-See the [toolkit documentation](https://github.com/actions/toolkit/blob/master/README.md#packages) for the various packages.
-
 ## Publish to a distribution branch
 
-Actions are run from GitHub repos so we will checkin the packed dist folder. 
+Actions are run from GitHub repos so we will checkin the packed dist folder.
 
 Then run [ncc](https://github.com/zeit/ncc) and push the results:
+
 ```bash
 $ npm run package
 $ git add dist
@@ -84,7 +108,7 @@ $ git push origin releases/v1
 
 Note: We recommend using the `--license` option for ncc, which will create a license file for all of the production node modules used in your project.
 
-Your action is now published! :rocket: 
+Your action is now published! :rocket:
 
 See the [versioning documentation](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md)
 
@@ -95,11 +119,7 @@ You can now validate the action by referencing `./` in a workflow in your repo (
 ```yaml
 uses: ./
 with:
-  milliseconds: 1000
+  path: ''./
 ```
 
 See the [actions tab](https://github.com/actions/typescript-action/actions) for runs of this action! :rocket:
-
-## Usage:
-
-After testing you can [create a v1 tag](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md) to reference the stable and latest V1 action

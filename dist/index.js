@@ -13,12 +13,12 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.getVersion = exports.findFile = void 0;
 const fs_1 = __importDefault(__nccwpck_require__(147));
 const path_1 = __nccwpck_require__(17);
-const findFile = (path, fileName) => {
-    return fs_1.default.readFileSync((0, path_1.join)(path, fileName)).toString();
+const findFile = (path, filename) => {
+    return fs_1.default.readFileSync((0, path_1.join)(path, filename)).toString();
 };
 exports.findFile = findFile;
-const getVersion = (path, fileName = 'package.json', field = 'version') => {
-    const fileContent = (0, exports.findFile)(path, fileName);
+const getVersion = (path = './', filename = 'package.json', field = 'version') => {
+    const fileContent = (0, exports.findFile)(path, filename);
     return JSON.parse(fileContent)[field];
 };
 exports.getVersion = getVersion;
@@ -70,11 +70,11 @@ function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const path = core.getInput('path');
-            const fileName = core.getInput('fileName');
+            const filename = core.getInput('filename');
             const field = core.getInput('field');
-            const result = (0, getVersion_1.getVersion)(path, fileName, field);
+            const result = (0, getVersion_1.getVersion)(path, filename, field);
             core.debug(`read path: ${path}`);
-            core.debug(`read fileName: ${fileName}`);
+            core.debug(`read filename: ${filename}`);
             core.debug(`read field: ${field}`);
             core.setOutput('version', result);
         }

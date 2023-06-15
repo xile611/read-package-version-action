@@ -4,12 +4,12 @@ import {getVersion} from './getVersion'
 async function run(): Promise<void> {
   try {
     const path: string = core.getInput('path')
-    const fileName: string = core.getInput('fileName')
+    const filename: string = core.getInput('filename')
     const field: string = core.getInput('field')
-    const result = getVersion(path, fileName, field)
+    const result = getVersion(path, filename, field)
 
     core.debug(`read path: ${path}`)
-    core.debug(`read fileName: ${fileName}`)
+    core.debug(`read filename: ${filename}`)
     core.debug(`read field: ${field}`)
 
     core.setOutput('version', result)

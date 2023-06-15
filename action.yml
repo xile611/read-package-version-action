@@ -3,12 +3,12 @@ description: 'Output the version specified in [path]/package.json'
 author: 'xile611'
 inputs:
   path:
-    required: true
-    description: 'path dir path of package.json, do not include package.json'
-    default: './'
-  fileName:
     required: false
-    description: 'The fileName you want to read, default value is package.json'
+    description: 'The directory path of target json file'
+    default: './'
+  filename:
+    required: false
+    description: 'The file name you want to read, default value is package.json'
     default: 'package.json'
   field:
     required: false

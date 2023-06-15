@@ -8,11 +8,11 @@ test('getVersion when input "path"', async () => {
   await expect(getVersion('./')).toBe('0.0.0')
 })
 
-test('getVersion when input "path" and "fileName"', async () => {
+test('getVersion when input "path" and "filename"', async () => {
   await expect(getVersion('./__tests__', 'test.json')).toBe('0.1.0')
 })
 
-test('getVersion input "path" and "fileName" and "field"', async () => {
+test('getVersion input "path" and "filename" and "field"', async () => {
   await expect(getVersion('./__tests__', 'test.json', 'another')).toBe('1.0.0')
 })
 
