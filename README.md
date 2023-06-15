@@ -54,17 +54,28 @@ jobs:
 
 ### inputs
 
-| input name | required | default value  | description                                          |
-| ---------- | -------- | -------------- | ---------------------------------------------------- |
-| path       | false    | './'           | The directory path of target json file               |
-| filename   | false    | 'package.json' | The file name you want to read                       |
-| field      | false    | 'version'      | The field which specify the version you want to read |
+| input name          | required | default value  | description                                            |
+| ------------------- | -------- | -------------- | ------------------------------------------------------ |
+| path                | false    | './'           | The directory path of target json file                 |
+| filename            | false    | 'package.json' | The file name you want to read                         |
+| field               | false    | 'version'      | The field which specify the version you want to read   |
+| semver_string       | false    |                | The semver string that want to be parsed               |
+| semver_pattern      | false    | '^v?(.\*)$'    | The pattern to parse the semver string                 |
+| use_current_version | false    | true           | parse current version when semver_string not specified |
 
 ### outputs
 
-| output name | type   |
-| ----------- | ------ |
-| version     | string |
+| output name      | type   | description                                                        |
+| ---------------- | ------ | ------------------------------------------------------------------ |
+| current_version  | string | the current version                                                |
+| pre_release_type | string | the pre-release type parsed from semver_string or current version  |
+| pre_release_name | string | the pre-release name parsed from semver_string or current version  |
+| full             | string | the full version parsed from semver_string or current version      |
+| major            | string | the major version parsed from semver_string or current version     |
+| minor            | string | the minor version parsed from semver_string or current version     |
+| patch            | string | the patch version parsed from semver_string or current version     |
+| prerelease       | string | the prerelease string parsed from semver_string or current version |
+| build            | string | the build string parsed from semver_string or current version      |
 
 ## develop
 

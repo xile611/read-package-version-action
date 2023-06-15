@@ -14,6 +14,16 @@ inputs:
     required: false
     description: 'The field which specify the version you want to read'
     default: 'version'
+  use_current_version:
+    required: false
+    description: 'parse current version when semver_string not defined'
+    default: true
+  semver_string:
+    required: false
+    description: 'The semver string that want to be parsed'
+  semver_pattern:
+    required: false
+    description: 'The pattern to parse the semver string'
 outputs:
   version: # id of the output
     description: 'the version to read'
