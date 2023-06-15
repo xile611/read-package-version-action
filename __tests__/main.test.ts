@@ -5,11 +5,11 @@ import * as path from 'path'
 import {expect, test} from '@jest/globals'
 
 test('getVersion by default', async () => {
-  expect(getVersion()).toBe('1.0.0')
+  expect(getVersion()).toBe('2.0.0')
 })
 
 test('getVersion when input "path"', async () => {
-  expect(getVersion('./')).toBe('1.0.0')
+  expect(getVersion('./')).toBe('2.0.0')
 })
 
 test('getVersion when input "path" and "filename"', async () => {
