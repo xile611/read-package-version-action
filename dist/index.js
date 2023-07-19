@@ -73,10 +73,11 @@ function run() {
         try {
             const useCurrentVersion = core.getInput('use_current_version');
             let currentVersion = null;
-            if (useCurrentVersion) {
+            if (useCurrentVersion && useCurrentVersion !== 'false') {
                 const path = core.getInput('path');
                 const filename = core.getInput('filename');
                 const field = core.getInput('field');
+                core.info(`Read version from path: ${path}, fileName: ${filename}, field: ${field}`);
                 currentVersion = (0, getVersion_1.getVersion)(path, filename, field);
                 core.setOutput('current_version', currentVersion);
             }
