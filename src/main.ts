@@ -39,6 +39,7 @@ async function run(): Promise<void> {
       core.setOutput('pre_release_type', res.pre_release_type)
       core.setOutput('pre_release_name', res.pre_release_name)
       core.setOutput('full', res.full)
+      core.setOutput('main', res.main)
       core.setOutput('major', res.major)
       core.setOutput('minor', res.minor)
       core.setOutput('patch', res.patch)

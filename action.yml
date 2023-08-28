@@ -33,6 +33,8 @@ outputs:
     description: 'the pre-release name parsed from semver_string or current version'
   full:
     description: 'the full version parsed from semver_string or current version'
+  main:
+    description: 'the main version parsed from semver_string or current version'
   major:
     description: 'the major version parsed from semver_string or current version'
   minor:
